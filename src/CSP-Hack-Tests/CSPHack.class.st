@@ -18,7 +18,7 @@ CSPHack class >> install [
 { #category : #actions }
 CSPHack class >> installDebug [
 	^ (WAAdmin register: CSPHackCounterFunctionalTest asApplicationAt: 'tests/csp-hack')	
-		preferenceAt: #scriptGeneratorClass put: CSPHackScriptGenerator;
+		preferenceAt: #scriptGeneratorClass put: JQScriptGenerator;
 		preferenceAt: #renderPhaseContinuationClass put: (GRPlatform current bindingOf: CSPIndentedRenderPhaseContinuation);
 		preferenceAt: #rootDecorationClasses put: Array new;
 		addFilter: CSPHackFilter new;

@@ -12,10 +12,8 @@ CSPHtmlDocument >> openTag: aString attributes: anAttributes closed: aBoolean [
 	| attributes |
 	attributes := anAttributes.
 	aString = 'script' ifTrue: [
-		attributes isNil ifTrue: [
-			attributes := WAHtmlAttributes new ].
-		(attributes includesKey: 'nonce') ifFalse: [
-			attributes at: 'nonce' put: self requestContext cspNonce ] ].
+		attributes := attributes ifNil: [ WAHtmlAttributes new ].
+		attributes at: 'nonce' ifAbsentPut: [ self requestContext cspNonce ] ].
 	
 	super openTag: aString attributes: attributes closed: aBoolean
 ]
