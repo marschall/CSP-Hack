@@ -41,7 +41,7 @@ CSPNonceFilter >> generateNonce [
 
 { #category : #processing }
 CSPNonceFilter >> handleFiltered: aRequestContext [
-	aRequestContext request isGet ifTrue: [
+	(self shouldAddNonceTo: aRequestContext) ifTrue: [
 		self addNonceTo: aRequestContext ].
 	super handleFiltered: aRequestContext
 ]
@@ -62,4 +62,11 @@ CSPNonceFilter >> nonceSize [
 { #category : #accessing }
 CSPNonceFilter >> nonceSpace [
 	^ 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+]
+
+{ #category : #processing }
+CSPNonceFilter >> shouldAddNonceTo: aRequestContext [
+	| request |
+	request := aRequestContext request.
+	^ request isGet and: [ request isXmlHttpRequest not ]
 ]
